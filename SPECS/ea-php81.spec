@@ -247,7 +247,7 @@ This version of PHP does not include Apache's mod_php DSO module.
 
 PHP dropped the major version from its '.so' and symbols. Because
  this change is not backwards compatible, cPanel & WHM dropped
- support for DSO in PHP 8.0.
+ support for DSO in PHP 8.1.
 
 
 %package cli
