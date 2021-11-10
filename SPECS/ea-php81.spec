@@ -14,8 +14,8 @@
 %scl_package php
 
 # API/ABI check
-%global apiver      20201009
-%global zendver     20201009
+%global apiver      20210902
+%global zendver     20210902
 %global pdover      20170320
 
 # Adds -z now to the linker flags
@@ -138,7 +138,7 @@ Summary:  PHP scripting language for creating dynamic web sites
 Vendor:   cPanel, Inc.
 Name:     %{?scl_prefix}php
 # update to public release: also update other temprary hardcoded. look for "drop the RC labels"
-Version:  8.1.0beta3
+Version:  8.1.0RC5
 # Doing release_prefix this way for Release allows for OBS-proof versioning, See EA-4588 for more details
 %define release_prefix 1
 Release:  %{release_prefix}%{?dist}.cpanel
@@ -976,10 +976,7 @@ inside them.
 : Building %{name}-%{version}-%{release} with systemd=%{with_systemd} interbase=%{with_interbase} sqlite3=%{with_sqlite3} tidy=%{with_tidy} zip=%{with_zip}
 
 #TODO: after release it needs to be this
-#%setup -q -n php-%{version}
-
-# but during bta
-%setup -q -n php-php-src-ff10ddc
+%setup -q -n php-%{version}
 
 %patch42 -p1 -b .systemdpackage
 %patch43 -p1 -b .phpize
@@ -1217,6 +1214,7 @@ export LDFLAGS="-Wl,-rpath=/opt/cpanel/ea-brotli/lib"
 %endif
 
 export LDFLAGS="$LDFLAGS -Wl,-rpath,/opt/cpanel/libargon2/lib64 -L/opt/cpanel/libargon2/lib64 -largon2"
+export ARGON2_CFLAGS=-I/opt/cpanel/libargon2/include
 
 ln -sf ../configure
 %configure \
