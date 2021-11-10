@@ -138,7 +138,7 @@ Summary:  PHP scripting language for creating dynamic web sites
 Vendor:   cPanel, Inc.
 Name:     %{?scl_prefix}php
 # update to public release: also update other temprary hardcoded. look for "drop the RC labels"
-Version:  8.1.0RC5
+Version:  8.1.0rc5
 # Doing release_prefix this way for Release allows for OBS-proof versioning, See EA-4588 for more details
 %define release_prefix 1
 Release:  %{release_prefix}%{?dist}.cpanel
@@ -975,8 +975,10 @@ inside them.
 %prep
 : Building %{name}-%{version}-%{release} with systemd=%{with_systemd} interbase=%{with_interbase} sqlite3=%{with_sqlite3} tidy=%{with_tidy} zip=%{with_zip}
 
-#TODO: after release it needs to be this
-%setup -q -n php-%{version}
+# remove upversion on release
+%define upversion 8.1.0RC5
+
+%setup -q -n php-%{upversion}
 
 %patch42 -p1 -b .systemdpackage
 %patch43 -p1 -b .phpize
@@ -1032,7 +1034,9 @@ rm Zend/tests/bug68412.phpt
 
 # Safety check for API version change.
 pver=$(sed -n '/#define PHP_VERSION /{s/.* "//;s/".*$//;p}' main/php_version.h)
-if test "x${pver}" != "x%{version}"; then
+# TODO: Change this with release
+#if test "x${pver}" != "x%{version}"; then
+if test "x${pver}" != "x%{upversion}"; then
    : Error: Upstream PHP version is now ${pver}, expecting %{version}.
    : Update the version macros and rebuild.
    exit 1
