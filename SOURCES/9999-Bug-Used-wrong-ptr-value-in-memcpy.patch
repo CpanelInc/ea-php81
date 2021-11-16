@@ -1,8 +1,14 @@
-From ad647bb53821b9fda40b0bb595399d20f3c0d453 Mon Sep 17 00:00:00 2001
+From 1fe9591d1fd6abb7c3f4a51f4518c8239a7ab75a Mon Sep 17 00:00:00 2001
 From: Julian Brown <julian.brown@cpanel.net>
-Date: Mon, 15 Nov 2021 21:21:24 +0000
+Date: Tue, 16 Nov 2021 16:53:31 +0000
 Subject: [PATCH] Bug: Used wrong ptr value in memcpy
 
+Submitted PR upstream, the moment they merge it and publish we need
+to drop this patch.
+
+The pull request is:
+
+https://github.com/php/php-src/pull/7660
 ---
  main/fopen_wrappers.c | 2 +-
  1 file changed, 1 insertion(+), 1 deletion(-)
