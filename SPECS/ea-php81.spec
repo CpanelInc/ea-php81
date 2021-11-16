@@ -138,7 +138,7 @@ Summary:  PHP scripting language for creating dynamic web sites
 Vendor:   cPanel, Inc.
 Name:     %{?scl_prefix}php
 # update to public release: also update other temprary hardcoded. look for "drop the RC labels"
-Version:  8.1.0rc5
+Version:  8.1.0rc6
 # Doing release_prefix this way for Release allows for OBS-proof versioning, See EA-4588 for more details
 %define release_prefix 1
 Release:  %{release_prefix}%{?dist}.cpanel
@@ -183,6 +183,8 @@ Patch107: 0009-Add-support-for-use-of-the-system-timezone-database-.patch
 Patch402: 0011-0022-PLESK-missed-kill.patch
 Patch403: 0012-Revert-new-.user.ini-search-behavior.patch
 Patch404: 0013-Prevent-kill_all_lockers-from-crashing-PHP.patch
+
+Patch9999: 9999-Bug-Used-wrong-ptr-value-in-memcpy.patch
 
 BuildRequires: re2c
 BuildRequires: ea-libxml2-devel
@@ -977,7 +979,7 @@ inside them.
 : Building %{name}-%{version}-%{release} with systemd=%{with_systemd} interbase=%{with_interbase} sqlite3=%{with_sqlite3} tidy=%{with_tidy} zip=%{with_zip}
 
 # remove upversion on release
-%define upversion 8.1.0RC5
+%define upversion 8.1.0RC6
 
 %setup -q -n php-%{upversion}
 
@@ -993,6 +995,9 @@ inside them.
 %patch402 -p1 -b .missedkill
 %patch403 -p1 -b .userini
 %patch404 -p1 -b .kill_all_lockers
+
+# remove once this is fixed upstream
+%patch9999 -p1 -b .upstream_bug
 
 # Prevent %%doc confusion over LICENSE files
 cp Zend/LICENSE Zend/ZEND_LICENSE
