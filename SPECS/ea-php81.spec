@@ -1870,6 +1870,9 @@ fi
 %endif
 
 %changelog
+* Wed Nov 17 2021 Julian Brown <julian.brown@webpros.com> - 8.1.0rc6-1
+- ZC-9479: Build php8.1 on Ubuntu
+
 * Thu Nov 04 2021 Cory McIntire <julian.brown@webpros.com> - 8.1.0beta3-1
 - ZC-8130: Build php8.1
 
