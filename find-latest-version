@@ -42,14 +42,7 @@ sub _get_required {
         }
 
         my $tag_list = Cpanel::JSON::Load( $res->{content} );
-#TODO - remove this once it is fully released
-use Data::Dumper;
-print Dumper ($tag_list) . "\n";
-exit;
         for my $tag ( @{$tag_list} ) {
-#TODO - remove this once it is fully released
-print "TAGLIST ($page) NAME ($tag->{name})\n";
-
             if ( $tag->{name} =~ m/^php-$php_major\.(\S+)$/ ) {
                 push @potential, $1;
             }
@@ -71,7 +64,7 @@ print "TAGLIST ($page) NAME ($tag->{name})\n";
     my ($latest_minor) = map { sort @{ $groups{$_} } } sort { $b cmp $a } keys %groups;
 
     my $version = "$php_major.$latest_minor";
-    my $name    = "php-$version.tar.bz2";
+    my $name    = "php-$version.tar.gz";
     my $url     = "http://www.php.net/distributions/$name";
 
     return ( $version, $url, $name );

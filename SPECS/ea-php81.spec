@@ -138,7 +138,7 @@ Summary:  PHP scripting language for creating dynamic web sites
 Vendor:   cPanel, Inc.
 Name:     %{?scl_prefix}php
 # update to public release: also update other temprary hardcoded. look for "drop the RC labels"
-Version:  8.1.0rc6
+Version:  8.1.0
 # Doing release_prefix this way for Release allows for OBS-proof versioning, See EA-4588 for more details
 %define release_prefix 1
 Release:  %{release_prefix}%{?dist}.cpanel
@@ -183,8 +183,6 @@ Patch107: 0009-Add-support-for-use-of-the-system-timezone-database-.patch
 Patch402: 0011-0022-PLESK-missed-kill.patch
 Patch403: 0012-Revert-new-.user.ini-search-behavior.patch
 Patch404: 0013-Prevent-kill_all_lockers-from-crashing-PHP.patch
-
-Patch9999: 9999-Bug-Used-wrong-ptr-value-in-memcpy.patch
 
 BuildRequires: re2c
 BuildRequires: ea-libxml2-devel
@@ -977,10 +975,7 @@ inside them.
 %prep
 : Building %{name}-%{version}-%{release} with systemd=%{with_systemd} interbase=%{with_interbase} sqlite3=%{with_sqlite3} tidy=%{with_tidy} zip=%{with_zip}
 
-# remove upversion on release
-%define upversion 8.1.0RC6
-
-%setup -q -n php-%{upversion}
+%setup -q -n php-%{version}
 
 %patch42 -p1 -b .systemdpackage
 %patch43 -p1 -b .phpize
@@ -994,9 +989,6 @@ inside them.
 %patch402 -p1 -b .missedkill
 %patch403 -p1 -b .userini
 %patch404 -p1 -b .kill_all_lockers
-
-# remove once this is fixed upstream
-%patch9999 -p1 -b .upstream_bug
 
 # Prevent %%doc confusion over LICENSE files
 cp Zend/LICENSE Zend/ZEND_LICENSE
@@ -1041,7 +1033,7 @@ rm Zend/tests/bug68412.phpt
 pver=$(sed -n '/#define PHP_VERSION /{s/.* "//;s/".*$//;p}' main/php_version.h)
 # TODO: Change this with release
 #if test "x${pver}" != "x%{version}"; then
-if test "x${pver}" != "x%{upversion}"; then
+if test "x${pver}" != "x%{version}"; then
    : Error: Upstream PHP version is now ${pver}, expecting %{version}.
    : Update the version macros and rebuild.
    exit 1
@@ -1870,6 +1862,9 @@ fi
 %endif
 
 %changelog
+* Tue Nov 23 2021 Julian Brown <julian.brown@webpros.com> - 8.1.0-1
+- ZC-9524: Released tarball
+
 * Wed Nov 17 2021 Julian Brown <julian.brown@webpros.com> - 8.1.0rc6-1
 - ZC-9479: Build php8.1 on Ubuntu
 

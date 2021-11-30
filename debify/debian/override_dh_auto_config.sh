@@ -4,9 +4,6 @@ source debian/vars.sh
 
 set -x
 
-# remove upversion on release
-upversion=8.1.0RC6
-
 cp Zend/LICENSE Zend/ZEND_LICENSE
 cp TSRM/LICENSE TSRM_LICENSE
 cp sapi/fpm/LICENSE fpm_LICENSE
@@ -35,7 +32,7 @@ rm Zend/tests/bug68412.phpt
 
 # Safety check for API version change.
 pver=$(sed -n '/#define PHP_VERSION /{s/.* "//;s/".*$//;p}' main/php_version.h)
-if test "x${pver}" != "x$upversion"; then
+if test "x${pver}" != "x$version"; then
    : Error: Upstream PHP version is now ${pver}, expecting $version.
    : Update the version macros and rebuild.
    exit 1
