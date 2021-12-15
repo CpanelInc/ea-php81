@@ -1892,7 +1892,7 @@ fi
 %endif
 
 %changelog
-* Tue Dec R212021 Julian Brown <julian.brown@cpanel.net> - 8.1.1-2
+* Tue Dec 21 2021 Julian Brown <julian.brown@cpanel.net> - 8.1.1-2
 - ZC-9587: Build php-sodium
 
 * Fri Dec 17 2021 Cory McIntire <cory@cpanel.net> - 8.1.1-1
