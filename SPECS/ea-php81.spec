@@ -140,7 +140,7 @@ Name:     %{?scl_prefix}php
 # update to public release: also update other temprary hardcoded. look for "drop the RC labels"
 Version:  8.1.1
 # Doing release_prefix this way for Release allows for OBS-proof versioning, See EA-4588 for more details
-%define release_prefix 1
+%define release_prefix 2
 Release:  %{release_prefix}%{?dist}.cpanel
 # All files licensed under PHP version 3.01, except
 # Zend is licensed under Zend
@@ -1862,6 +1862,9 @@ fi
 %endif
 
 %changelog
+* Tue Dec R212021 Julian Brown <julian.brown@cpanel.net> - 8.1.1-2
+- ZC-9587: Build php-sodium
+
 * Fri Dec 17 2021 Cory McIntire <cory@cpanel.net> - 8.1.1-1
 - EA-10366: Update ea-php81 from v8.1.0 to v8.1.1
 
