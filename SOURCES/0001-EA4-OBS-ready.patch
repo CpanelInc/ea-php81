@@ -1,4 +1,4 @@
-From 7ac2e8fbc07655bcf97e563d7616f174e4c160dc Mon Sep 17 00:00:00 2001
+From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
 From: Julian Brown <julian.brown@cpanel.net>
 Date: Fri, 5 Nov 2021 14:13:28 +0000
 Subject: [PATCH 01/12] EA4 OBS ready
@@ -9,7 +9,7 @@ Subject: [PATCH 01/12] EA4 OBS ready
  2 files changed, 4 deletions(-)
 
 diff --git a/build/php.m4 b/build/php.m4
-index a4469ac0..ec02c8f5 100644
+index 4f64f66..640743b 100644
 --- a/build/php.m4
 +++ b/build/php.m4
 @@ -2035,8 +2035,6 @@ dnl
@@ -22,7 +22,7 @@ index a4469ac0..ec02c8f5 100644
    PHP_EVAL_LIBLINE($LIBXML_LIBS, $1)
  
 diff --git a/sapi/fpm/config.m4 b/sapi/fpm/config.m4
-index 7c2fdec1..088e52db 100644
+index 7c2fdec..088e52d 100644
 --- a/sapi/fpm/config.m4
 +++ b/sapi/fpm/config.m4
 @@ -538,8 +538,6 @@ if test "$PHP_FPM" != "no"; then
@@ -34,6 +34,3 @@ index 7c2fdec1..088e52db 100644
      AC_CHECK_HEADERS(systemd/sd-daemon.h, [HAVE_SD_DAEMON_H="yes"], [HAVE_SD_DAEMON_H="no"])
      if test $HAVE_SD_DAEMON_H = "no"; then
        AC_MSG_ERROR([Your system does not support systemd.])
--- 
-2.31.1
-
