@@ -255,7 +255,7 @@ PHP dropped the major version from its '.so' and symbols. Because
 %package sodium
 Summary:        Cryptographic Extension Based on Libsodium
 Group:          Development/Libraries/PHP
-Requires:       %{?scl_prefix}php = %{version}
+Requires:       %{?scl_prefix}php-common = %{version}
 Provides:       %{?scl_prefix}php-sodium = %{version}
 Obsoletes:      %{?scl_prefix}php-sodium < %{version}
 
