@@ -81,6 +81,7 @@ for mod in pgsql odbc ldap snmp xmlrpc imap \
     phar fileinfo \
     intl \
     tidy \
+    sodium \
     zip \
     pspell curl xml \
     posix shmop sysvshm sysvsem sysvmsg

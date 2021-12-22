@@ -62,6 +62,8 @@
 %global with_embed     1
 %endif
 
+%global with_sodium 1
+
 %if 0%{rhel} < 7
 BuildRequires: devtoolset-7-toolchain
 BuildRequires: devtoolset-7-libatomic-devel
@@ -140,7 +142,7 @@ Name:     %{?scl_prefix}php
 # update to public release: also update other temprary hardcoded. look for "drop the RC labels"
 Version:  8.1.1
 # Doing release_prefix this way for Release allows for OBS-proof versioning, See EA-4588 for more details
-%define release_prefix 1
+%define release_prefix 2
 Release:  %{release_prefix}%{?dist}.cpanel
 # All files licensed under PHP version 3.01, except
 # Zend is licensed under Zend
@@ -249,6 +251,21 @@ PHP dropped the major version from its '.so' and symbols. Because
  this change is not backwards compatible, cPanel & WHM dropped
  support for DSO in PHP 8.1.
 
+%if %{with_sodium}
+%package sodium
+Summary:        Cryptographic Extension Based on Libsodium
+Group:          Development/Libraries/PHP
+Requires:       %{?scl_prefix}php-common = %{version}
+Provides:       %{?scl_prefix}php-sodium = %{version}
+Obsoletes:      %{?scl_prefix}php-sodium < %{version}
+
+BuildRequires:  pkgconfig(libsodium) >= 1.0.18
+Requires:       libsodium >= 1.0.18
+
+%description sodium
+PHP binding to libsodium software library for encryption, decryption,
+signatures, password hashing and more.
+%endif
 
 %package cli
 Group: Development/Languages
@@ -1174,9 +1191,9 @@ cp ../Zend/zend_{language,ini}_{parser,scanner}.* Zend
 # zlib: used by image
 
 %if 0%{?rhel} > 7
-export PKG_CONFIG_PATH=/opt/cpanel/ea-php81/root/usr/%{_lib}/pkgconfig:/opt/cpanel/ea-php81/root/usr/share/pkgconfig:/usr/%{_lib}/pkgconfig:/opt/cpanel/ea-libxml2/%{_lib}/pkgconfig:/opt/cpanel/ea-libicu/lib/pkgconfig:/opt/cpanel/ea-oniguruma/%{_lib}/pkgconfig:/opt/cpanel/libargon2/lib64/pkgconfig
+export PKG_CONFIG_PATH=/opt/cpanel/ea-php81/root/usr/%{_lib}/pkgconfig:/opt/cpanel/ea-php81/root/usr/share/pkgconfig:/usr/%{_lib}/pkgconfig:/opt/cpanel/ea-libxml2/%{_lib}/pkgconfig:/opt/cpanel/ea-libicu/lib/pkgconfig:/opt/cpanel/ea-oniguruma/%{_lib}/pkgconfig:/opt/cpanel/libargon2/lib64/pkgconfig:/usr/lib64/pkgconfig
 %else
-export PKG_CONFIG_PATH=/opt/cpanel/ea-php81/root/usr/%{_lib}/pkgconfig:/opt/cpanel/ea-php81/root/usr/share/pkgconfig:/usr/%{_lib}/pkgconfig:/opt/cpanel/ea-openssl11/%{_lib}/pkgconfig:/opt/cpanel/ea-libxml2/%{_lib}/pkgconfig:/opt/cpanel/ea-libicu/lib/pkgconfig:/opt/cpanel/ea-oniguruma/%{_lib}/pkgconfig:/opt/cpanel/libargon2/lib64/pkgconfig
+export PKG_CONFIG_PATH=/opt/cpanel/ea-php81/root/usr/%{_lib}/pkgconfig:/opt/cpanel/ea-php81/root/usr/share/pkgconfig:/usr/%{_lib}/pkgconfig:/opt/cpanel/ea-openssl11/%{_lib}/pkgconfig:/opt/cpanel/ea-libxml2/%{_lib}/pkgconfig:/opt/cpanel/ea-libicu/lib/pkgconfig:/opt/cpanel/ea-oniguruma/%{_lib}/pkgconfig:/opt/cpanel/libargon2/lib64/pkgconfig:/usr/lib64/pkgconfig
 %endif
 
 export LIBXML_CFLAGS=-I/opt/cpanel/ea-libxml2/include/libxml2
@@ -1245,6 +1262,9 @@ ln -sf ../configure
     --enable-sockets \
     --with-kerberos \
     --enable-shmop \
+%if %{with_sodium}
+    --with-sodium=shared \
+%endif
     --with-libxml \
     --with-system-tzdata \
     --with-mhash \
@@ -1551,6 +1571,9 @@ for mod in pgsql odbc ldap snmp imap \
 %if %{with_tidy}
     tidy \
 %endif
+%if %{with_sodium}
+    sodium \
+%endif
 %if %{with_zip}
     zip \
 %endif
@@ -1726,6 +1749,13 @@ fi
 %dir %{_localstatedir}/lib
 %dir %{_datadir}/php
 
+%if %{with_sodium}
+%files sodium
+%defattr(-, root, root)
+%{_libdir}/php/modules/sodium.so
+%config(noreplace) %{_sysconfdir}/php.d/20-sodium.ini
+%endif
+
 %files cli
 %defattr(-,root,root)
 %{_bindir}/php
@@ -1862,6 +1892,9 @@ fi
 %endif
 
 %changelog
+* Tue Dec 21 2021 Julian Brown <julian.brown@cpanel.net> - 8.1.1-2
+- ZC-9587: Build php-sodium
+
 * Fri Dec 17 2021 Cory McIntire <cory@cpanel.net> - 8.1.1-1
 - EA-10366: Update ea-php81 from v8.1.0 to v8.1.1
 
