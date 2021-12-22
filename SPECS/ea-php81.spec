@@ -142,7 +142,7 @@ Name:     %{?scl_prefix}php
 # update to public release: also update other temprary hardcoded. look for "drop the RC labels"
 Version:  8.1.1
 # Doing release_prefix this way for Release allows for OBS-proof versioning, See EA-4588 for more details
-%define release_prefix 3
+%define release_prefix 4
 Release:  %{release_prefix}%{?dist}.cpanel
 # All files licensed under PHP version 3.01, except
 # Zend is licensed under Zend
@@ -1892,6 +1892,9 @@ fi
 %endif
 
 %changelog
+* Wed Jan 05 2022 Julian Brown <julian.brown@cpanel.net> - 8.1.1-4
+- ZC-9600: Fix Ubuntu 21 global regs problem
+
 * Tue Dec 28 2021 Dan Muey <dan@cpanel.net> - 8.1.1-3
 - ZC-9589: Update DISABLE_BUILD to match OBS
 
