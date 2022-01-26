@@ -140,9 +140,9 @@ Summary:  PHP scripting language for creating dynamic web sites
 Vendor:   cPanel, Inc.
 Name:     %{?scl_prefix}php
 # update to public release: also update other temprary hardcoded. look for "drop the RC labels"
-Version:  8.1.1
+Version:  8.1.2
 # Doing release_prefix this way for Release allows for OBS-proof versioning, See EA-4588 for more details
-%define release_prefix 4
+%define release_prefix 1
 Release:  %{release_prefix}%{?dist}.cpanel
 # All files licensed under PHP version 3.01, except
 # Zend is licensed under Zend
@@ -180,11 +180,11 @@ Patch105: 0007-Chroot-FPM-users-with-noshell-and-jailshell.patch
 Patch106: 0008-Patch-epoll.c-per-bug-report-in-upstream.patch
 
 BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
-Patch107: 0009-Add-support-for-use-of-the-system-timezone-database-.patch
+Patch107: 0009-Add-support-for-use-of-the-system-timezone-database.patch
 
-Patch402: 0011-0022-PLESK-missed-kill.patch
-Patch403: 0012-Revert-new-.user.ini-search-behavior.patch
-Patch404: 0013-Prevent-kill_all_lockers-from-crashing-PHP.patch
+Patch402: 0010-0022-PLESK-missed-kill.patch
+Patch403: 0011-Revert-new-.user.ini-search-behavior.patch
+Patch404: 0012-Prevent-kill_all_lockers-from-crashing-PHP.patch
 
 BuildRequires: re2c
 BuildRequires: ea-libxml2-devel
@@ -1892,6 +1892,9 @@ fi
 %endif
 
 %changelog
+* Fri Jan 21 2022 Tim Mullin <tim@cpanel.net> - 8.1.2-1
+- EA-10451: Update ea-php81 from v8.1.1 to v8.1.2
+
 * Wed Jan 05 2022 Julian Brown <julian.brown@cpanel.net> - 8.1.1-4
 - ZC-9600: Fix Ubuntu 21 global regs problem
 
