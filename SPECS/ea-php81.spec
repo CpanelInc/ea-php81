@@ -142,7 +142,7 @@ Name:     %{?scl_prefix}php
 # update to public release: also update other temprary hardcoded. look for "drop the RC labels"
 Version:  8.1.3
 # Doing release_prefix this way for Release allows for OBS-proof versioning, See EA-4588 for more details
-%define release_prefix 1
+%define release_prefix 2
 Release:  %{release_prefix}%{?dist}.cpanel
 # All files licensed under PHP version 3.01, except
 # Zend is licensed under Zend
@@ -152,7 +152,7 @@ Group:    Development/Languages
 URL:      http://www.php.net/
 
 Source0: php-%{version}.tar.gz
-Source1: https://www.litespeedtech.com/packages/lsapi/php-litespeed-7.9.tgz
+Source1: https://www.litespeedtech.com/packages/lsapi/php-litespeed-8.0.1.tgz
 Source2: php.ini
 Source3: macros.php
 Source4: php-fpm.conf
@@ -1892,6 +1892,9 @@ fi
 %endif
 
 %changelog
+* Wed Mar 02 2022 Travis Holloway <t.holloway@cpanel.net> - 8.1.3-2
+- EA-10532: Update litespeed to 8.0.1
+
 * Fri Feb 18 2022 Cory McIntire <cory@cpanel.net> - 8.1.3-1
 - EA-10506: Update ea-php81 from v8.1.2 to v8.1.3
 
