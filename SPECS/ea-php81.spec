@@ -1894,6 +1894,7 @@ fi
 %changelog
 * Thu Jul 07 2022 Cory McIntire <cory@cpanel.net> - 8.1.8-1
 - EA-10821: Update ea-php81 from v8.1.7 to v8.1.8
+- (Heap buffer overflow in finfo_buffer). (CVE-2022-31627)
 
 * Thu Jun 09 2022 Cory McIntire <cory@cpanel.net> - 8.1.7-1
 - EA-10758: Update ea-php81 from v8.1.6 to v8.1.7
