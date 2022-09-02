@@ -8,7 +8,7 @@ Subject: [PATCH 12/12] Prevent kill_all_lockers() from crashing PHP
  1 file changed, 1 insertion(+), 1 deletion(-)
 
 diff --git a/ext/opcache/ZendAccelerator.c b/ext/opcache/ZendAccelerator.c
-index 5f6b854..88c94c0 100644
+index d19d3b1..fb9b671 100644
 --- a/ext/opcache/ZendAccelerator.c
 +++ b/ext/opcache/ZendAccelerator.c
 @@ -824,7 +824,7 @@ static inline void kill_all_lockers(struct flock *mem_usage_check)
