@@ -142,7 +142,7 @@ Name:     %{?scl_prefix}php
 # update to public release: also update other temprary hardcoded. look for "drop the RC labels"
 Version:  8.1.10
 # Doing release_prefix this way for Release allows for OBS-proof versioning, See EA-4588 for more details
-%define release_prefix 2
+%define release_prefix 3
 Release:  %{release_prefix}%{?dist}.cpanel
 # All files licensed under PHP version 3.01, except
 # Zend is licensed under Zend
@@ -1155,6 +1155,12 @@ C8FLAGS="-mshstk"
 CFLAGS="$RPM_OPT_FLAGS -fno-strict-aliasing -Wno-pointer-sign $C8FLAGS"
 export CFLAGS
 
+%if 0%{?rhel} >= 9
+XFLAGS=`echo "$CFLAGS" | sed 's/-flto=auto/-fno-lto/g'`
+XFLAGS=`echo "$XFLAGS" | sed 's/-ffat-lto-objects//g'`
+export CFLAGS="$XFLAGS"
+%endif
+
 %if 0%{?rhel} > 7
 export CURL_SHARED_LIBADD="-Wl,-rpath=/opt/cpanel/ea-brotli/%{_lib}"
 %else
@@ -1277,6 +1283,11 @@ if test $? != 0; then
   : configure failed
   exit 1
 fi
+
+%if 0%{?rhel} >= 9
+sed -i 's/-flto=auto/-fno-lto/' Makefile
+sed -i 's/-ffat-lto-objects//' Makefile
+%endif
 
 make %{?_smp_mflags}
 }
@@ -1892,6 +1903,9 @@ fi
 %endif
 
 %changelog
+* Thu Sep 29 2022 Julian Brown <julian.brown@cpanel.net> - 8.1.10-3
+- ZC-10009: Add changes so that it builds on AlmaLinux 9
+
 * Mon Sep 26 2022 Dan Muey <dan@cpanel.net> - 8.1.10-2
 - ZC-10260: Link deb against libcurl 4 explicitly
 
