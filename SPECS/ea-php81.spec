@@ -140,7 +140,7 @@ Summary:  PHP scripting language for creating dynamic web sites
 Vendor:   cPanel, Inc.
 Name:     %{?scl_prefix}php
 # update to public release: also update other temprary hardcoded. look for "drop the RC labels"
-Version:  8.1.13
+Version:  8.1.14
 # Doing release_prefix this way for Release allows for OBS-proof versioning, See EA-4588 for more details
 %define release_prefix 1
 Release:  %{release_prefix}%{?dist}.cpanel
@@ -151,7 +151,7 @@ License:  PHP and Zend and BSD
 Group:    Development/Languages
 URL:      http://www.php.net/
 
-Source0: php-%{version}.tar.gz
+Source0: php-%{version}.tar.bz2
 Source1: https://www.litespeedtech.com/packages/lsapi/php-litespeed-8.0.1.tgz
 Source2: php.ini
 Source3: macros.php
@@ -1903,6 +1903,10 @@ fi
 %endif
 
 %changelog
+* Thu Jan 05 2023 Cory McIntire <cory@cpanel.net> - 8.1.14-1
+- EA-11133: Update ea-php81 from v8.1.13 to v8.1.14
+- PDO::quote() may return unquoted string). (CVE-2022-31631)
+
 * Thu Nov 24 2022 Cory McIntire <cory@cpanel.net> - 8.1.13-1
 - EA-11070: Update ea-php81 from v8.1.12 to v8.1.13
 
