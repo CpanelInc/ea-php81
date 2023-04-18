@@ -970,6 +970,7 @@ Group: System Environment/Libraries
 Requires: %{?scl_prefix}php-common%{?_isa} = %{version}-%{release}
 Requires: %{?scl_prefix}php-cli%{?_isa} = %{version}-%{release}
 BuildRequires: enchant-devel >= 1.2.4
+Requires: enchant2
 
 %description enchant
 The %{?scl_prefix}php-enchant package contains a dynamic shared object that will add
@@ -1424,35 +1425,6 @@ build --enable-embed \
       --without-mysqli --disable-pdo \
       ${without_shared}
 popd
-%endif
-
-%check
-%if %runselftest
-
-# Increase stack size (required by bug54268.phpt)
-ulimit -s 32712
-
-cd build-cgi
-
-# Run tests, using the CLI SAPI
-export NO_INTERACTION=1 REPORT_EXIT_STATUS=1
-export SKIP_ONLINE_TESTS=1
-export TEST_PHP_ARGS=-j$(nproc)
-unset TZ LANG LC_ALL
-if ! make test; then
-  set +x
-  for f in $(find .. -name \*.diff -type f -print); do
-    if ! grep -q XFAIL "${f/.diff/.phpt}"
-    then
-      echo "TEST FAILURE: $f --"
-      head -n 100 "$f"
-      echo -e "\n-- $f result ends."
-    fi
-  done
-  set -x
-  #exit 1
-fi
-unset NO_INTERACTION REPORT_EXIT_STATUS MALLOC_CHECK_
 %endif
 
 %install

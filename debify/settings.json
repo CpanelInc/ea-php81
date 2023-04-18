@@ -59,12 +59,10 @@
     "add_to_requires": {
         "ea-php81-php-imap": [ "libc-client2007e" ],
         "ea-php81-php-dba": [ "libtokyocabinet9" ],
-        "ea-php81-php-enchant": [ "libenchant1c2a" ],
         "ea-php81-php-odbc": [ "libodbc1" ],
         "ea-php81-php-pdo": [ "libpq5" ],
         "ea-php81-php-pgsql": [ "libpq5" ],
         "ea-php81-php-pspell": [ "libaspell15" ],
-        "ea-php81-php-snmp": [ "libsnmp35" ],
         "ea-php81-php-sodium": [ "ea-php81-php-common", "libsodium23" ]
     },
     "remove_from_install": [
