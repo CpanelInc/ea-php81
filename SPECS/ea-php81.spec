@@ -142,9 +142,9 @@ Summary:  PHP scripting language for creating dynamic web sites
 Vendor:   cPanel, Inc.
 Name:     %{?scl_prefix}php
 # update to public release: also update other temprary hardcoded. look for "drop the RC labels"
-Version:  8.1.18
+Version:  8.1.19
 # Doing release_prefix this way for Release allows for OBS-proof versioning, See EA-4588 for more details
-%define release_prefix 2
+%define release_prefix 1
 Release:  %{release_prefix}%{?dist}.cpanel
 # All files licensed under PHP version 3.01, except
 # Zend is licensed under Zend
@@ -1912,6 +1912,9 @@ fi
 %endif
 
 %changelog
+* Fri May 12 2023 Cory McIntire <cory@cpanel.net> - 8.1.19-1
+- EA-11415: Update ea-php81 from v8.1.18 to v8.1.19
+
 * Tue Apr 18 2023 Julian Brown <julian.brown@cpanel.net> - 8.1.18-2
 - ZC-10873: Simplify the libidn deps, for building on Ubuntu 20 and 22
 
