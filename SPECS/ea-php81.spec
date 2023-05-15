@@ -145,7 +145,7 @@ Name:     %{?scl_prefix}php
 # update to public release: also update other temprary hardcoded. look for "drop the RC labels"
 Version:  8.1.19
 # Doing release_prefix this way for Release allows for OBS-proof versioning, See EA-4588 for more details
-%define release_prefix 3
+%define release_prefix 4
 Release:  %{release_prefix}%{?dist}.cpanel
 # All files licensed under PHP version 3.01, except
 # Zend is licensed under Zend
@@ -555,7 +555,8 @@ Provides: %{?scl_prefix}php-imap%{?_isa} = %{version}-%{release}
 Requires: %{?scl_prefix}php-common%{?_isa} = %{version}-%{release}
 Requires: %{?scl_prefix}php-cli%{?_isa} = %{version}-%{release}
 
-BuildRequires: krb5-devel%{?_isa}
+BuildRequires: krb5-devel
+BuildRequires: ea-libc-client
 
 %if 0%{?rhel} > 7
 # In C8 we use system openssl. See DESIGN.md in ea-openssl11 git repo for details
@@ -564,14 +565,6 @@ Requires: openssl
 %else
 BuildRequires: ea-openssl11 >= %{ea_openssl_ver}, ea-openssl11-devel >= %{ea_openssl_ver}
 Requires: ea-openssl11 >= %{ea_openssl_ver}
-%endif
-
-%if 0%{?rhel} >= 8
-Requires: %{?scl_prefix}libc-client
-BuildRequires: %{?scl_prefix}libc-client-devel
-%else
-Requires: %{?scl_prefix}libc-client%{?_isa}
-BuildRequires: %{?scl_prefix}libc-client-devel%{?_isa}
 %endif
 
 %description imap
@@ -1207,7 +1200,7 @@ cp ../Zend/zend_{language,ini}_{parser,scanner}.* Zend
 # zlib: used by image
 
 %if 0%{?rhel} > 7
-export PKG_CONFIG_PATH=/opt/cpanel/ea-php81/root/usr/%{_lib}/pkgconfig:/opt/cpanel/ea-php81/root/usr/share/pkgconfig:/usr/%{_lib}/pkgconfig:/opt/cpanel/ea-libxml2/%{_lib}/pkgconfig:/opt/cpanel/ea-libicu/lib/pkgconfig:/opt/cpanel/ea-oniguruma/%{_lib}/pkgconfig:/opt/cpanel/libargon2/lib64/pkgconfig:/usr/lib64/pkgconfig
+export PKG_CONFIG_PATH=/opt/cpanel/ea-php81/root/usr/%{_lib}/pkgconfig:/opt/cpanel/ea-php81/root/usr/share/pkgconfig:/usr/%{_lib}/pkgconfig:/opt/cpanel/ea-libxml2/%{_lib}/pkgconfig:/opt/cpanel/ea-libicu/lib/pkgconfig:/opt/cpanel/ea-oniguruma/%{_lib}/pkgconfig:/opt/cpanel/libargon2/lib64/pkgconfig:/usr/lib64/pkgconfig:/opt/cpanel/libargon2/lib64/pkgconfig
 %else
 export PKG_CONFIG_PATH=/opt/cpanel/ea-php81/root/usr/%{_lib}/pkgconfig:/opt/cpanel/ea-php81/root/usr/share/pkgconfig:/usr/%{_lib}/pkgconfig:/opt/cpanel/ea-openssl11/%{_lib}/pkgconfig:/opt/cpanel/ea-libxml2/%{_lib}/pkgconfig:/opt/cpanel/ea-libicu/lib/pkgconfig:/opt/cpanel/ea-oniguruma/%{_lib}/pkgconfig:/opt/cpanel/libargon2/lib64/pkgconfig:/usr/lib64/pkgconfig
 %endif
@@ -1299,6 +1292,12 @@ sed -i 's/-flto=auto/-fno-lto/' Makefile
 sed -i 's/-ffat-lto-objects//' Makefile
 %endif
 
+# ZC-10931 - we are building libc-client in, but statically.  This allows us to deprecate and remove
+# scl-libc-client, instead we have a build require for ea-libc-client
+# There is no way I could find in the configure scripts to build against libc-client statically
+# So I hit it with a hammer
+sed -i 's/-lc-client/-l:c-client.a -lkrb5 -lgssapi_krb5 -lkrb5 -lgssapi_krb5/g' scripts/php-config Makefile
+
 make %{?_smp_mflags}
 }
 
@@ -1309,7 +1308,7 @@ build --libdir=%{_libdir}/php \
       --enable-pcntl \
       --enable-opcache \
       --enable-phpdbg \
-      --with-imap=shared,%{_prefix} \
+      --with-imap=shared,/opt/cpanel/ea-libc-client \
       --with-imap-ssl \
       --enable-mbstring=shared \
 %if %{with_lsws}
@@ -1913,6 +1912,9 @@ fi
 %endif
 
 %changelog
+* Thu May 18 2023 Julian Brown <julian.brown@cpanel.net> - 8.1.19-4
+- ZC-10931: Statically link libc-client-
+
 * Wed May 17 2023 Julian Brown <julian.brown@cpanel.net> - 8.1.19-3
 - ZC-10950: Fix build problems
 
