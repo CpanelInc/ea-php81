@@ -1913,7 +1913,7 @@ fi
 
 %changelog
 * Thu May 18 2023 Julian Brown <julian.brown@cpanel.net> - 8.1.19-4
-- ZC-10931: Statically link libc-client-
+- ZC-10931: Statically link ea-libc-client
 
 * Wed May 17 2023 Julian Brown <julian.brown@cpanel.net> - 8.1.19-3
 - ZC-10950: Fix build problems
