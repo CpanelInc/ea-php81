@@ -143,9 +143,9 @@ Summary:  PHP scripting language for creating dynamic web sites
 Vendor:   cPanel, Inc.
 Name:     %{?scl_prefix}php
 # update to public release: also update other temprary hardcoded. look for "drop the RC labels"
-Version:  8.1.19
+Version:  8.1.20
 # Doing release_prefix this way for Release allows for OBS-proof versioning, See EA-4588 for more details
-%define release_prefix 5
+%define release_prefix 1
 Release:  %{release_prefix}%{?dist}.cpanel
 # All files licensed under PHP version 3.01, except
 # Zend is licensed under Zend
@@ -1912,6 +1912,9 @@ fi
 %endif
 
 %changelog
+* Thu Jun 08 2023 Cory McIntire <cory@cpanel.net> - 8.1.20-1
+- EA-11477: Update ea-php81 from v8.1.19 to v8.1.20
+
 * Tue May 30 2023 Travis Holloway <t.holloway@cpanel.net> - 8.1.19-5
 - EA-11447: Increase default php memory_limit for new installs from 32M to 128M
 
