@@ -1914,6 +1914,10 @@ fi
 %changelog
 * Thu Aug 03 2023 Cory McIntire <cory@cpanel.net> - 8.1.22-1
 - EA-11589: Update ea-php81 from v8.1.21 to v8.1.22
+	- Libxml:
+		Fixed bug GHSA-3qrf-m4j2-pcrr (Security issue with external entity loading in XML without enabling it). (CVE-2023-3823)
+	- Phar:
+		Fixed bug GHSA-jqcx-ccgc-xwhv (Buffer mismanagement in phar_dir_read()). (CVE-2023-3824)
 
 * Fri Jul 07 2023 Cory McIntire <cory@cpanel.net> - 8.1.21-1
 - EA-11538: Update ea-php81 from v8.1.20 to v8.1.21
