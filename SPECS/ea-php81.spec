@@ -145,7 +145,7 @@ Name:     %{?scl_prefix}php
 # update to public release: also update other temprary hardcoded. look for "drop the RC labels"
 Version:  8.1.26
 # Doing release_prefix this way for Release allows for OBS-proof versioning, See EA-4588 for more details
-%define release_prefix 2
+%define release_prefix 3
 Release:  %{release_prefix}%{?dist}.cpanel
 # All files licensed under PHP version 3.01, except
 # Zend is licensed under Zend
@@ -188,6 +188,7 @@ Patch107: 0009-Add-support-for-use-of-the-system-timezone-database.patch
 Patch402: 0010-0022-PLESK-missed-kill.patch
 Patch403: 0011-Revert-new-.user.ini-search-behavior.patch
 Patch404: 0012-Prevent-kill_all_lockers-from-crashing-PHP.patch
+Patch405: 0013-Update-libxml-include-file-references.patch
 
 BuildRequires: re2c
 BuildRequires: ea-libxml2-devel
@@ -1009,6 +1010,7 @@ inside them.
 %patch402 -p1 -b .missedkill
 %patch403 -p1 -b .userini
 %patch404 -p1 -b .kill_all_lockers
+%patch405 -p1 -b .libxml_includes
 
 # Prevent %%doc confusion over LICENSE files
 cp Zend/LICENSE Zend/ZEND_LICENSE
@@ -1912,6 +1914,9 @@ fi
 %endif
 
 %changelog
+* Tue Nov 30 2023 Tim Mullin <tim@cpanel.net> - 8.1.26-3
+- EA-11821: Patch to build with the latest ea-libxml2
+
 * Tue Nov 28 2023 Julian Brown <julian.brown@cpanel.net> - 8.1.26-2
 - ZC-11419: Correct Ubuntu build issues
 

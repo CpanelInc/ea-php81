@@ -1,14 +1,14 @@
 From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
 From: Julian Brown <julian.brown@cpanel.net>
 Date: Fri, 5 Nov 2021 14:17:19 +0000
-Subject: [PATCH 05/12] Ensure that php.d is not scanned when PHPRC is set
+Subject: [PATCH 05/13] Ensure that php.d is not scanned when PHPRC is set
 
 ---
  main/php_ini.c | 10 +++++++++-
  1 file changed, 9 insertions(+), 1 deletion(-)
 
 diff --git a/main/php_ini.c b/main/php_ini.c
-index 1369428..a70eef7 100644
+index 13694289..a70eef76 100644
 --- a/main/php_ini.c
 +++ b/main/php_ini.c
 @@ -639,7 +639,15 @@ int php_init_config(void)
