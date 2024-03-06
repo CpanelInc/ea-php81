@@ -79,6 +79,12 @@ BuildRequires: devtoolset-7-gcc-c++
 # provides it as apart of epel, a repo we don't readily depend on.
 %global with_webp 1
 
+%if 0%{rhel} > 7
+%global with_avif 1
+%else
+%global with_avif 0
+%endif
+
 %global with_curl     1
 
 %if 0%{?rhel} >= 8
@@ -145,7 +151,7 @@ Name:     %{?scl_prefix}php
 # update to public release: also update other temprary hardcoded. look for "drop the RC labels"
 Version:  8.1.27
 # Doing release_prefix this way for Release allows for OBS-proof versioning, See EA-4588 for more details
-%define release_prefix 1
+%define release_prefix 2
 Release:  %{release_prefix}%{?dist}.cpanel
 # All files licensed under PHP version 3.01, except
 # Zend is licensed under Zend
@@ -851,6 +857,10 @@ BuildRequires: libjpeg-turbo-devel%{?_isa}, libpng-devel%{?_isa}, libXpm-devel%{
 Requires: libwebp%{?_isa}
 BuildRequires: libwebp-devel%{?_isa}
 %endif
+%if %{with_avif}
+Requires: libavif%{?_isa}
+BuildRequires: libavif-devel%{?_isa}
+%endif
 
 %description gd
 The %{?scl_prefix}php-gd package contains a dynamic shared object that will add
@@ -1316,6 +1326,9 @@ build --libdir=%{_libdir}/php \
 %endif
 %if %{with_webp}
       --with-webp \
+%endif
+%if %{with_avif}
+      --with-avif \
 %endif
       --enable-gd=shared \
       --with-gmp=shared \
@@ -1912,6 +1925,9 @@ fi
 %endif
 
 %changelog
+* Tue Mar 05 2024 Brian Mendoza <brian.mendoza@cpanel.net> - 8.1.27-2
+- ZC-11561: Add GD support for AVIF format
+
 * Tue Jan 02 2024 Travis Holloway <t.holloway@cpanel.net> - 8.1.27-1
 - EA-11892: Update ea-php81 from v8.1.26 to v8.1.27
 
