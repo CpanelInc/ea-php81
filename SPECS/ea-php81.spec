@@ -151,7 +151,7 @@ Name:     %{?scl_prefix}php
 # update to public release: also update other temprary hardcoded. look for "drop the RC labels"
 Version:  8.1.28
 # Doing release_prefix this way for Release allows for OBS-proof versioning, See EA-4588 for more details
-%define release_prefix 1
+%define release_prefix 2
 Release:  %{release_prefix}%{?dist}.cpanel
 # All files licensed under PHP version 3.01, except
 # Zend is licensed under Zend
@@ -1925,6 +1925,9 @@ fi
 %endif
 
 %changelog
+* Mon Apr 15 2024 Brian Mendoza <brian.mendoza@cpanel.net> - 8.1.28-2
+- ZC-11730: Add GD support for AVIF format on Ubuntu 22 and higher
+
 * Fri Apr 12 2024 Cory McIntire <cory@cpanel.net> - 8.1.28-1
 - EA-12087: Update ea-php81 from v8.1.27 to v8.1.28
 - Fixed bug GHSA-pc52-254m-w9w7 (Command injection via array-ish $command parameter of proc_open). (CVE-2024-1874)
