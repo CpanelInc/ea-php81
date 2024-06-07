@@ -1927,6 +1927,10 @@ fi
 %changelog
 * Thu Jun 06 2024 Cory McIntire <cory@cpanel.net> - 8.1.29-1
 - EA-12192: Update ea-php81 from v8.1.28 to v8.1.29
+- Fixed bug GHSA-3qgc-jrrr-25jv (Bypass of CVE-2012-1823, Argument Injection in PHP-CGI). (CVE-2024-4577)
+- Fixed bug GHSA-w8qr-v226-r27w (Filter bypass in filter_var FILTER_VALIDATE_URL). (CVE-2024-5458)
+- Fixed bug GHSA-9fcc-425m-g385 (Bypass of CVE-2024-1874). (CVE-2024-5585)
+- The openssl_private_decrypt function in PHP, when using PKCS1 padding (OPENSSL_PKCS1_PADDING, which is the default), is vulnerable to the Marvin Attack
 
 * Mon Apr 15 2024 Brian Mendoza <brian.mendoza@cpanel.net> - 8.1.28-2
 - ZC-11730: Add GD support for AVIF format on Ubuntu 22 and higher
