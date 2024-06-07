@@ -149,9 +149,9 @@ Summary:  PHP scripting language for creating dynamic web sites
 Vendor:   cPanel, Inc.
 Name:     %{?scl_prefix}php
 # update to public release: also update other temprary hardcoded. look for "drop the RC labels"
-Version:  8.1.28
+Version:  8.1.29
 # Doing release_prefix this way for Release allows for OBS-proof versioning, See EA-4588 for more details
-%define release_prefix 2
+%define release_prefix 1
 Release:  %{release_prefix}%{?dist}.cpanel
 # All files licensed under PHP version 3.01, except
 # Zend is licensed under Zend
@@ -1925,6 +1925,9 @@ fi
 %endif
 
 %changelog
+* Thu Jun 06 2024 Cory McIntire <cory@cpanel.net> - 8.1.29-1
+- EA-12192: Update ea-php81 from v8.1.28 to v8.1.29
+
 * Mon Apr 15 2024 Brian Mendoza <brian.mendoza@cpanel.net> - 8.1.28-2
 - ZC-11730: Add GD support for AVIF format on Ubuntu 22 and higher
 
