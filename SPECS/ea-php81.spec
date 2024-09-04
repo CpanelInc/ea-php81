@@ -151,7 +151,7 @@ Name:     %{?scl_prefix}php
 # update to public release: also update other temprary hardcoded. look for "drop the RC labels"
 Version:  8.1.29
 # Doing release_prefix this way for Release allows for OBS-proof versioning, See EA-4588 for more details
-%define release_prefix 1
+%define release_prefix 2
 Release:  %{release_prefix}%{?dist}.cpanel
 # All files licensed under PHP version 3.01, except
 # Zend is licensed under Zend
@@ -194,6 +194,8 @@ Patch107: 0009-Add-support-for-use-of-the-system-timezone-database.patch
 Patch402: 0010-0022-PLESK-missed-kill.patch
 Patch403: 0011-Revert-new-.user.ini-search-behavior.patch
 Patch404: 0012-Prevent-kill_all_lockers-from-crashing-PHP.patch
+
+Patch015: 0015-libxml2-2.13-makes-changes-to-how-the-parsing-state-.patch
 
 BuildRequires: re2c
 BuildRequires: ea-libxml2-devel
@@ -1019,6 +1021,8 @@ inside them.
 %patch402 -p1 -b .missedkill
 %patch403 -p1 -b .userini
 %patch404 -p1 -b .kill_all_lockers
+
+%patch015 -p1 -b .libxml2
 
 # Prevent %%doc confusion over LICENSE files
 cp Zend/LICENSE Zend/ZEND_LICENSE
@@ -1925,6 +1929,9 @@ fi
 %endif
 
 %changelog
+* Wed Sep 04 2024 Julian Brown <julian.brown@cpanel.net> - 8.1.29-2
+- ZC-12114: Apply fix for libxml2
+
 * Thu Jun 06 2024 Cory McIntire <cory@cpanel.net> - 8.1.29-1
 - EA-12192: Update ea-php81 from v8.1.28 to v8.1.29
 - Fixed bug GHSA-3qgc-jrrr-25jv (Bypass of CVE-2012-1823, Argument Injection in PHP-CGI). (CVE-2024-4577)
