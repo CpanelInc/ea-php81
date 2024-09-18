@@ -151,7 +151,7 @@ Name:     %{?scl_prefix}php
 # update to public release: also update other temprary hardcoded. look for "drop the RC labels"
 Version:  8.1.29
 # Doing release_prefix this way for Release allows for OBS-proof versioning, See EA-4588 for more details
-%define release_prefix 2
+%define release_prefix 3
 Release:  %{release_prefix}%{?dist}.cpanel
 # All files licensed under PHP version 3.01, except
 # Zend is licensed under Zend
@@ -1929,6 +1929,9 @@ fi
 %endif
 
 %changelog
+* Tue Sep 17 2024 Dan Muey <dan@cpanel.net> - 8.1.29-3
+- ZC-12153: make opcache INI a configfile for debs
+
 * Wed Sep 04 2024 Julian Brown <julian.brown@cpanel.net> - 8.1.29-2
 - ZC-12114: Apply fix for libxml2
 
