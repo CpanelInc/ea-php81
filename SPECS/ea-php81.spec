@@ -149,9 +149,9 @@ Summary:  PHP scripting language for creating dynamic web sites
 Vendor:   cPanel, Inc.
 Name:     %{?scl_prefix}php
 # update to public release: also update other temprary hardcoded. look for "drop the RC labels"
-Version:  8.1.29
+Version:  8.1.30
 # Doing release_prefix this way for Release allows for OBS-proof versioning, See EA-4588 for more details
-%define release_prefix 3
+%define release_prefix 1
 Release:  %{release_prefix}%{?dist}.cpanel
 # All files licensed under PHP version 3.01, except
 # Zend is licensed under Zend
@@ -1929,6 +1929,13 @@ fi
 %endif
 
 %changelog
+* Thu Sep 26 2024 Cory McIntire <cory@cpanel.net> - 8.1.30-1
+- EA-12428: Update ea-php81 from v8.1.29 to v8.1.30
+- Fixed bug GHSA-865w-9rf3-2wh5 (Logs from childrens may be altered). (CVE-2024-9026)
+- Fixed bug GHSA-9pqp-7h25-4f32 (Erroneous parsing of multipart form data). (CVE-2024-8925)
+- Fixed bug GHSA-p99j-rfp4-xqvq (Bypass of CVE-2024-4577, Parameter Injection Vulnerability). (CVE-2024-8926)
+- Fixed bug GHSA-94p6-54jq-9mwp (cgi.force_redirect configuration is bypassable due to the environment variable collision). (CVE-2024-8927)
+
 * Tue Sep 17 2024 Dan Muey <dan@cpanel.net> - 8.1.29-3
 - ZC-12153: make opcache INI a configfile for debs
 
