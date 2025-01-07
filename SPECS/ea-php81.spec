@@ -67,11 +67,8 @@
 
 %global with_sodium 1
 
-%if 0%{rhel} < 7
-BuildRequires: devtoolset-7-toolchain
-BuildRequires: devtoolset-7-libatomic-devel
-BuildRequires: devtoolset-7-gcc
-BuildRequires: devtoolset-7-gcc-c++
+%if 0%{rhel} == 7
+BuildRequires: devtoolset-8 devtoolset-8-gcc devtoolset-8-gcc-c++ kernel-devel
 %endif
 
 # PHP 7.0 switched to using libwebp with the bundled version of gd,
@@ -151,7 +148,7 @@ Name:     %{?scl_prefix}php
 # update to public release: also update other temprary hardcoded. look for "drop the RC labels"
 Version:  8.1.31
 # Doing release_prefix this way for Release allows for OBS-proof versioning, See EA-4588 for more details
-%define release_prefix 1
+%define release_prefix 2
 Release:  %{release_prefix}%{?dist}.cpanel
 # All files licensed under PHP version 3.01, except
 # Zend is licensed under Zend
@@ -236,7 +233,7 @@ BuildRequires: readline-devel
 %if %{with_pcre}
 BuildRequires: pcre2-devel >= 10.30
 %else
-Provides:      Provides: bundled(pcre2) = 10.32
+Provides:      bundled(pcre2) = 10.32
 %endif
 BuildRequires: bzip2, perl, libtool >= 1.4.3, gcc-c++
 BuildRequires: libtool-ltdl-devel
@@ -1138,8 +1135,8 @@ sed -e 's:%{_root_sysconfdir}:%{_sysconfdir}:' \
 
 
 %build
-%if 0%{?rhel} < 7
-. /opt/rh/devtoolset-7/enable
+%if 0%{?rhel} == 7
+. /opt/rh/devtoolset-8/enable
 %endif
 
 # aclocal workaround - to be improved
@@ -1929,6 +1926,9 @@ fi
 %endif
 
 %changelog
+* Tue Jan 07 2025 Dan Muey <daniel.muey@webpros.com> - 8.1.31-2
+- ZC-12495: Do gcc like newer PHPs so that the libicu update won’t break the build
+
 * Thu Nov 21 2024 Cory McIntire <cory@cpanel.net> - 8.1.31-1
 - EA-12576: Update ea-php81 from v8.1.30 to v8.1.31
 - (Single byte overread with convert.quoted-printable-decode filter). (CVE-2024-11233)
