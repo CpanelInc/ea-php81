@@ -194,6 +194,8 @@ Patch404: 0012-Prevent-kill_all_lockers-from-crashing-PHP.patch
 
 Patch015: 0015-libxml2-2.13-makes-changes-to-how-the-parsing-state-.patch
 
+Patch016: 0016-ZC-12495-Force-c-17-for-latest-libicu-support.patch
+
 BuildRequires: re2c
 BuildRequires: ea-libxml2-devel
 BuildRequires: bzip2-devel, %{db_devel}
@@ -1020,6 +1022,7 @@ inside them.
 %patch404 -p1 -b .kill_all_lockers
 
 %patch015 -p1 -b .libxml2
+%patch016 -p1 -b .cxx17libicu
 
 # Prevent %%doc confusion over LICENSE files
 cp Zend/LICENSE Zend/ZEND_LICENSE
