@@ -146,9 +146,9 @@ Summary:  PHP scripting language for creating dynamic web sites
 Vendor:   cPanel, Inc.
 Name:     %{?scl_prefix}php
 # update to public release: also update other temprary hardcoded. look for "drop the RC labels"
-Version:  8.1.31
+Version:  8.1.32
 # Doing release_prefix this way for Release allows for OBS-proof versioning, See EA-4588 for more details
-%define release_prefix 2
+%define release_prefix 1
 Release:  %{release_prefix}%{?dist}.cpanel
 # All files licensed under PHP version 3.01, except
 # Zend is licensed under Zend
@@ -1929,6 +1929,9 @@ fi
 %endif
 
 %changelog
+* Thu Mar 13 2025 Cory McIntire <cory.mcintire@webpros.com> - 8.1.32-1
+- EA-12766: Update ea-php81 from v8.1.31 to v8.1.32
+
 * Tue Jan 07 2025 Dan Muey <daniel.muey@webpros.com> - 8.1.31-2
 - ZC-12495: Do gcc like newer PHPs so that the libicu update won’t break the build
 
