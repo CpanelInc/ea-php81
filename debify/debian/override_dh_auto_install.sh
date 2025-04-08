@@ -35,9 +35,6 @@ ln -sf /opt/cpanel/$ns_name-$pkg/root/usr/var/log/php-fpm $DEB_INSTALL_ROOT$_loc
 ln -sf /opt/cpanel/$ns_name-$pkg/root/usr/var/run/php-fpm $DEB_INSTALL_ROOT$_localstatedir/run/php-fpm
 # Config
 install -m 755 -d $DEB_INSTALL_ROOT$_sysconfdir/php-fpm.d
-
-echo "PHP_FPM_CONF" $_sysconfdir  $DEB_INSTALL_ROOT$_sysconfdir/php-fpm.conf $SOURCE4
-
 install -m 644 $SOURCE4 $DEB_INSTALL_ROOT$_sysconfdir/php-fpm.conf
 sed -e "s:/run:$_localstatedir/run:" \
     -e "s:/var/log:$_localstatedir/log:" \
