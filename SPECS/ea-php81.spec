@@ -150,7 +150,7 @@ Summary:  PHP scripting language for creating dynamic web sites
 Vendor:   cPanel, Inc.
 Name:     %{?scl_prefix}php
 # update to public release: also update other temprary hardcoded. look for "drop the RC labels"
-Version:  8.1.32
+Version:  8.1.33
 # Doing release_prefix this way for Release allows for OBS-proof versioning, See EA-4588 for more details
 %define release_prefix 1
 Release:  %{release_prefix}%{?dist}.cpanel
@@ -1948,6 +1948,9 @@ fi
 %endif
 
 %changelog
+* Thu Jul 03 2025 Cory McIntire <cory.mcintire@webpros.com> - 8.1.33-1
+- EA-13001: Update ea-php81 from v8.1.32 to v8.1.33
+
 * Thu Mar 13 2025 Cory McIntire <cory.mcintire@webpros.com> - 8.1.32-1
 - EA-12766: Update ea-php81 from v8.1.31 to v8.1.32
     - Fixed GHSA-hgf54-96fm-v528 (Stream HTTP wrapper header check might omit basic auth header). (CVE-2025-1736)
