@@ -150,7 +150,7 @@ Summary:  PHP scripting language for creating dynamic web sites
 Vendor:   cPanel, Inc.
 Name:     %{?scl_prefix}php
 # update to public release: also update other temprary hardcoded. look for "drop the RC labels"
-Version:  8.1.32
+Version:  8.1.33
 # Doing release_prefix this way for Release allows for OBS-proof versioning, See EA-4588 for more details
 %define release_prefix 1
 Release:  %{release_prefix}%{?dist}.cpanel
@@ -198,7 +198,6 @@ Patch404: 0012-Prevent-kill_all_lockers-from-crashing-PHP.patch
 
 Patch015: 0015-libxml2-2.13-makes-changes-to-how-the-parsing-state-.patch
 
-Patch016: 0016-ZC-12495-Force-c-17-for-latest-libicu-support.patch
 
 BuildRequires: re2c
 BuildRequires: bzip2-devel, %{db_devel}
@@ -1040,7 +1039,6 @@ inside them.
 %patch404 -p1 -b .kill_all_lockers
 
 %patch015 -p1 -b .libxml2
-%patch016 -p1 -b .cxx17libicu
 
 # Prevent %%doc confusion over LICENSE files
 cp Zend/LICENSE Zend/ZEND_LICENSE
@@ -1948,6 +1946,12 @@ fi
 %endif
 
 %changelog
+* Thu Jul 03 2025 Cory McIntire <cory.mcintire@webpros.com> - 8.1.33-1
+- EA-13001: Update ea-php81 from v8.1.32 to v8.1.33
+	- Fixed GHSA-hrwm-9436-5mv3 (pgsql extension does not check for errors during escaping). (CVE-2025-1735)
+	- Fixed GHSA-453j-q27h-5p8x (NULL Pointer Dereference in PHP SOAP Extension via Large XML Namespace Prefix). (CVE-2025-6491)
+	- Fixed GHSA-3cr5-j632-f35r (Null byte termination in hostnames). (CVE-2025-1220)
+
 * Thu Mar 13 2025 Cory McIntire <cory.mcintire@webpros.com> - 8.1.32-1
 - EA-12766: Update ea-php81 from v8.1.31 to v8.1.32
     - Fixed GHSA-hgf54-96fm-v528 (Stream HTTP wrapper header check might omit basic auth header). (CVE-2025-1736)
