@@ -152,7 +152,7 @@ Name:     %{?scl_prefix}php
 # update to public release: also update other temprary hardcoded. look for "drop the RC labels"
 Version:  8.1.33
 # Doing release_prefix this way for Release allows for OBS-proof versioning, See EA-4588 for more details
-%define release_prefix 1
+%define release_prefix 2
 Release:  %{release_prefix}%{?dist}.cpanel
 # All files licensed under PHP version 3.01, except
 # Zend is licensed under Zend
@@ -1946,6 +1946,9 @@ fi
 %endif
 
 %changelog
+* Wed Sep 10 2025 Dan Muey <daniel.muey@webpros.com> - 8.1.33-2
+- EA4-122: map u24 libodbc for PHP extension
+
 * Thu Jul 03 2025 Cory McIntire <cory.mcintire@webpros.com> - 8.1.33-1
 - EA-13001: Update ea-php81 from v8.1.32 to v8.1.33
 	- Fixed GHSA-hrwm-9436-5mv3 (pgsql extension does not check for errors during escaping). (CVE-2025-1735)
