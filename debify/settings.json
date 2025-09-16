@@ -56,7 +56,7 @@
     "add_to_requires": {
         "ea-php81-php-imap": [ "libc-client2007e" ],
         "ea-php81-php-dba": [ "libtokyocabinet9" ],
-        "ea-php81-php-odbc": [ "libodbc1" ],
+        "ea-php81-php-odbc": [ [ "libodbc1", "libodbc2" ] ],
         "ea-php81-php-pdo": [ "libpq5" ],
         "ea-php81-php-pgsql": [ "libpq5" ],
         "ea-php81-php-pspell": [ "libaspell15" ],
