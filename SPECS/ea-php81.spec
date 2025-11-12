@@ -152,7 +152,7 @@ Name:     %{?scl_prefix}php
 # update to public release: also update other temprary hardcoded. look for "drop the RC labels"
 Version:  8.1.33
 # Doing release_prefix this way for Release allows for OBS-proof versioning, See EA-4588 for more details
-%define release_prefix 2
+%define release_prefix 3
 Release:  %{release_prefix}%{?dist}.cpanel
 # All files licensed under PHP version 3.01, except
 # Zend is licensed under Zend
@@ -161,8 +161,10 @@ License:  PHP and Zend and BSD
 Group:    Development/Languages
 URL:      http://www.php.net/
 
+%global litespeed_version 8.3
+
 Source0: php-%{version}.tar.bz2
-Source1: https://www.litespeedtech.com/packages/lsapi/php-litespeed-8.0.1.tgz
+Source1: https://www.litespeedtech.com/packages/lsapi/php-litespeed-%{litespeed_version}.tgz
 Source2: php.ini
 Source3: macros.php
 Source4: php-fpm.conf
@@ -1274,6 +1276,11 @@ export LDFLAGS="-Wl,-rpath=/opt/cpanel/ea-brotli/lib"
 export LDFLAGS="$LDFLAGS -Wl,-rpath,/opt/cpanel/libargon2/lib64 -L/opt/cpanel/libargon2/lib64 -largon2"
 export ARGON2_CFLAGS=-I/opt/cpanel/libargon2/include
 
+export LDFLAGS="$LDFLAGS \
+    -Wl,--enable-new-dtags \
+    -Wl,-rpath,/opt/cpanel/ea-libxml2/lib \
+    -Wl,-rpath,/opt/cpanel/ea-libxml2/lib64"
+
 ln -sf ../configure
 %configure \
     --cache-file=../config.cache \
@@ -1946,6 +1953,9 @@ fi
 %endif
 
 %changelog
+* Tue Sep 23 2025 Chris Castillo <chris.castillo@webpros.com> - 8.1.33-3
+- EA-13088: Update php-litespeed to 8.3
+
 * Wed Sep 10 2025 Dan Muey <daniel.muey@webpros.com> - 8.1.33-2
 - EA4-122: map u24 libodbc for PHP extension
 
