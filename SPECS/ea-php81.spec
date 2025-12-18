@@ -150,9 +150,9 @@ Summary:  PHP scripting language for creating dynamic web sites
 Vendor:   cPanel, Inc.
 Name:     %{?scl_prefix}php
 # update to public release: also update other temprary hardcoded. look for "drop the RC labels"
-Version:  8.1.33
+Version:  8.1.34
 # Doing release_prefix this way for Release allows for OBS-proof versioning, See EA-4588 for more details
-%define release_prefix 3
+%define release_prefix 1
 Release:  %{release_prefix}%{?dist}.cpanel
 # All files licensed under PHP version 3.01, except
 # Zend is licensed under Zend
@@ -197,9 +197,6 @@ Patch107: 0009-Add-support-for-use-of-the-system-timezone-database.patch
 Patch402: 0010-0022-PLESK-missed-kill.patch
 Patch403: 0011-Revert-new-.user.ini-search-behavior.patch
 Patch404: 0012-Prevent-kill_all_lockers-from-crashing-PHP.patch
-
-Patch015: 0015-libxml2-2.13-makes-changes-to-how-the-parsing-state-.patch
-
 
 BuildRequires: re2c
 BuildRequires: bzip2-devel, %{db_devel}
@@ -1039,8 +1036,6 @@ inside them.
 %patch402 -p1 -b .missedkill
 %patch403 -p1 -b .userini
 %patch404 -p1 -b .kill_all_lockers
-
-%patch015 -p1 -b .libxml2
 
 # Prevent %%doc confusion over LICENSE files
 cp Zend/LICENSE Zend/ZEND_LICENSE
@@ -1953,6 +1948,12 @@ fi
 %endif
 
 %changelog
+* Thu Dec 18 2025 Dan Muey <daniel.muey@webpros.com> - 8.1.34-1
+- EA-13298: Update ea-php81 from v8.1.33 to v8.1.34
+- Fixed GHSA-8xr5-qppj-gvwj (PDO quoting result null deref). (CVE-2025-14180)
+- Fixed GHSA-h96m-rvf9-jgm2 (Heap buffer overflow in array_merge()). (CVE-2025-14178)
+- Fixed GHSA-3237-qqm7-mfv7 (Information Leak of Memory in getimagesize). (CVE-2025-14177)
+
 * Tue Sep 23 2025 Chris Castillo <chris.castillo@webpros.com> - 8.1.33-3
 - EA-13088: Update php-litespeed to 8.3
 
