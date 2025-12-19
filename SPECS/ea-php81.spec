@@ -198,6 +198,8 @@ Patch402: 0010-0022-PLESK-missed-kill.patch
 Patch403: 0011-Revert-new-.user.ini-search-behavior.patch
 Patch404: 0012-Prevent-kill_all_lockers-from-crashing-PHP.patch
 
+Patch015: 0015-libxml2-2.13-makes-changes-to-how-the-parsing-state-.patch
+
 BuildRequires: re2c
 BuildRequires: bzip2-devel, %{db_devel}
 
@@ -1036,6 +1038,8 @@ inside them.
 %patch402 -p1 -b .missedkill
 %patch403 -p1 -b .userini
 %patch404 -p1 -b .kill_all_lockers
+
+%patch015 -p1 -b .libxml2
 
 # Prevent %%doc confusion over LICENSE files
 cp Zend/LICENSE Zend/ZEND_LICENSE
