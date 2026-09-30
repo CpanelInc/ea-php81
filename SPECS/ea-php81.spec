@@ -166,7 +166,7 @@ Name:     %{?scl_prefix}php
 # update to public release: also update other temprary hardcoded. look for "drop the RC labels"
 Version:  8.1.34
 # Doing release_prefix this way for Release allows for OBS-proof versioning, See EA-4588 for more details
-%define release_prefix 3
+%define release_prefix 4
 Release:  %{release_prefix}%{?dist}.cpanel
 # All files licensed under PHP version 3.01, except
 # Zend is licensed under Zend
@@ -948,9 +948,15 @@ BuildRequires: libjpeg-turbo-devel%{?_isa}, libpng-devel%{?_isa}, libXpm-devel%{
 Requires: libwebp%{?_isa}
 BuildRequires: libwebp-devel%{?_isa}
 %endif
+
 %if %{with_avif}
-Requires: libavif%{?_isa}
-BuildRequires: libavif-devel%{?_isa}
+%if 0%{?rhel} == 9
+Requires: libavif >= 1.0
+BuildRequires: libavif-devel >= 1.0
+%else
+Requires: libavif
+BuildRequires: libavif-devel
+%endif
 %endif
 
 %description gd
@@ -2061,6 +2067,9 @@ fi
 %endif
 
 %changelog
+* Wed Sep 30 2026 Dan Muey <daniel.muey@webpros.com> - 8.1.34-4
+- EA4-334: Fixup avif deps to work with A9 EPEL conflict
+
 * Wed Apr 08 2026 Brian Mendoza <brian.mendoza@webpros.com> - 8.1.34-3
 - EA4-173: Mark ea-php81 as EOL
 
