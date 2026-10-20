@@ -166,7 +166,7 @@ Name:     %{?scl_prefix}php
 # update to public release: also update other temprary hardcoded. look for "drop the RC labels"
 Version:  8.1.34
 # Doing release_prefix this way for Release allows for OBS-proof versioning, See EA-4588 for more details
-%define release_prefix 4
+%define release_prefix 5
 Release:  %{release_prefix}%{?dist}.cpanel
 # All files licensed under PHP version 3.01, except
 # Zend is licensed under Zend
@@ -213,6 +213,7 @@ Patch403: 0011-Revert-new-.user.ini-search-behavior.patch
 Patch404: 0012-Prevent-kill_all_lockers-from-crashing-PHP.patch
 
 Patch015: 0015-libxml2-2.13-makes-changes-to-how-the-parsing-state-.patch
+Patch018: 0018-Avoid-state-corruption-via-bailout.patch
 
 BuildRequires: re2c
 BuildRequires: bzip2-devel, %{db_devel}
@@ -1144,6 +1145,7 @@ inside them.
 %patch404 -p1 -b .kill_all_lockers
 
 %patch015 -p1 -b .libxml2
+%patch018 -p1 -b .bailout
 
 # Prevent %%doc confusion over LICENSE files
 cp Zend/LICENSE Zend/ZEND_LICENSE
@@ -2067,6 +2069,9 @@ fi
 %endif
 
 %changelog
+* Tue Oct 20 2026 Cory McIntire <cory.mcintire@webpros.com> - 8.1.34-5
+- EA-13611: Backport fix for CVE-2026-109618 and CVE-2026-109619
+
 * Wed Sep 30 2026 Dan Muey <daniel.muey@webpros.com> - 8.1.34-4
 - EA4-334: Fixup avif deps to work with A9 EPEL conflict
 
