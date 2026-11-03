@@ -164,9 +164,10 @@ Summary:  EOL PHP scripting language for creating dynamic web sites
 Vendor:   cPanel, Inc.
 Name:     %{?scl_prefix}php
 # update to public release: also update other temprary hardcoded. look for "drop the RC labels"
-Version:  8.1.34
+%global upstream_version 8.1.34
+Version:  8.1.35
 # Doing release_prefix this way for Release allows for OBS-proof versioning, See EA-4588 for more details
-%define release_prefix 5
+%define release_prefix 2
 Release:  %{release_prefix}%{?dist}.cpanel
 # All files licensed under PHP version 3.01, except
 # Zend is licensed under Zend
@@ -177,7 +178,7 @@ URL: https://endoflife.date/php
 
 %global litespeed_version 8.3
 
-Source0: php-%{version}.tar.bz2
+Source0: php-%{upstream_version}.tar.bz2
 Source1: https://www.litespeedtech.com/packages/lsapi/php-litespeed-%{litespeed_version}.tgz
 Source2: php.ini
 Source3: macros.php
@@ -214,6 +215,8 @@ Patch404: 0012-Prevent-kill_all_lockers-from-crashing-PHP.patch
 
 Patch015: 0015-libxml2-2.13-makes-changes-to-how-the-parsing-state-.patch
 Patch018: 0018-Avoid-state-corruption-via-bailout.patch
+Patch044: 0044-Report-PHP-version-8.1.35.patch
+Patch045: 0045-Fix-CVE-2026-91765-and-CVE-2025-14181-in-ext-soap.patch
 
 BuildRequires: re2c
 BuildRequires: bzip2-devel, %{db_devel}
@@ -1129,7 +1132,7 @@ inside them.
 %prep
 : Building %{name}-%{version}-%{release} with systemd=%{with_systemd} interbase=%{with_interbase} sqlite3=%{with_sqlite3} tidy=%{with_tidy} zip=%{with_zip}
 
-%setup -q -n php-%{version}
+%setup -q -n php-%{upstream_version}
 
 %patch42 -p1 -b .systemdpackage
 %patch43 -p1 -b .phpize
@@ -1146,6 +1149,8 @@ inside them.
 
 %patch015 -p1 -b .libxml2
 %patch018 -p1 -b .bailout
+%patch044 -p1 -b .version
+%patch045 -p1 -b .soapcve
 
 # Prevent %%doc confusion over LICENSE files
 cp Zend/LICENSE Zend/ZEND_LICENSE
@@ -2069,6 +2074,12 @@ fi
 %endif
 
 %changelog
+* Mon Nov 02 2026 Cory McIntire <cory.mcintire@webpros.com> - 8.1.35-2
+- EA-13632: Backport fix for CVE-2026-91765 and CVE-2025-14181
+
+* Thu Oct 22 2026 Cory McIntire <cory.mcintire@webpros.com> - 8.1.35-1
+- EA-13619: Ghost bump to 8.1.35 for CVE-2026-109618 and CVE-2026-109619; no upstream 8.1.35 release exists
+
 * Tue Oct 20 2026 Cory McIntire <cory.mcintire@webpros.com> - 8.1.34-5
 - EA-13611: Backport fix for CVE-2026-109618 and CVE-2026-109619
 
